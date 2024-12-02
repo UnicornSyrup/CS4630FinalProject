@@ -51,15 +51,18 @@ public class DangerMask : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float progress = Mathf.Clamp01((Time.time - stepStartTime) / currentStep.duration);
-        transform.position = Vector3.Lerp(prevStep.pos, currentStep.pos, currentStep.curve.Evaluate(progress));
-        transform.eulerAngles = new Vector3(0, 0, Mathf.Lerp(prevStep.rot, currentStep.rot, currentStep.curve.Evaluate(progress)));
-
-        if (progress == 1)
+        if(steps.Count != 0)
         {
-            prevStep = currentStep;
-            currentStepIndex++;
-            stepStartTime = Time.time;
+            float progress = Mathf.Clamp01((Time.time - stepStartTime) / currentStep.duration);
+            transform.position = Vector3.Lerp(prevStep.pos, currentStep.pos, currentStep.curve.Evaluate(progress));
+            transform.eulerAngles = new Vector3(0, 0, Mathf.Lerp(prevStep.rot, currentStep.rot, currentStep.curve.Evaluate(progress)));
+
+            if (progress == 1)
+            {
+                prevStep = currentStep;
+                currentStepIndex++;
+                stepStartTime = Time.time;
+            }
         }
     }
 }
