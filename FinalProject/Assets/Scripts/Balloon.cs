@@ -8,6 +8,7 @@ public class Balloon : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Bee>() != null)
         {
+            GameManager.S.BallonDestroyed();
             Destroy(gameObject);
         }
     }
