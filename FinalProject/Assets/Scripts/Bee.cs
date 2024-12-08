@@ -37,7 +37,7 @@ public class Bee : MonoBehaviour
             // Die
             gameObject.GetComponent<SpriteRenderer>().color = Color.green;
             Destroy(this.gameObject);
-            GameManager.S.ReloadLevel();
+            GameManager.S.BeeDies();
         }
         else
         {
