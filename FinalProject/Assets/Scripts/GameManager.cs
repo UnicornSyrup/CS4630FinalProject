@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager S;
     private int currentScene = 0;
 
-    private List<GameObject> lifeIcons;
+    private List<GameObject> lifeIcons = new List<GameObject>();
 
     private float _balloonsRemaining;
     private float balloonsRemaining
@@ -30,7 +32,8 @@ public class GameManager : MonoBehaviour
         get { return _livesRemaining; }
         set
         {
-            //implement logic for removing life icons
+            // Life icon will disappear when scene reloads
+
             _livesRemaining = value;
             if(livesRemaining <= 0)
             {
@@ -81,12 +84,17 @@ public class GameManager : MonoBehaviour
             balloonsRemaining = balloons.Length;
         }
 
-        var uiContainer = GameObject.Find("Level UI");
-        //find bee lives icon, so you can remove them
-        var  beeIcons = uiContainer.GetComponentsInChildren<Bee>();
-        foreach(var icon in beeIcons)
+        var livesContainer = GameObject.Find("Lives Panel");
+        lifeIcons.Clear();
+        for (int i = 0; i < livesContainer.transform.childCount; i++)
         {
+            Image icon = livesContainer.transform.GetChild(i).GetComponent<Image>();
             lifeIcons.Add(icon.gameObject);
+            int lifeIndex = (int)Char.GetNumericValue(icon.gameObject.name[4]);
+            if (lifeIndex > livesRemaining - 1)
+            {
+                icon.color = new Color(0, 0, 0, 0);
+            }
         }
     }
 
