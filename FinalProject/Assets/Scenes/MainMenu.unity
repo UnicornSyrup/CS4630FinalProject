@@ -1163,20 +1163,11 @@ MonoBehaviour:
   sounds:
   - name: Theme
     clip: {fileID: 8300000, guid: 18ed4bf913201c848b966a29c612f15b, type: 3}
-    volume: 0.02
+    volume: 0.1
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
     loop: 1
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: Pop
-    clip: {fileID: 8300000, guid: 43bdb0840fbd53242902bfdc5c10281e, type: 3}
-    volume: 0.3
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0.3
-    loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
 --- !u!4 &1008463657

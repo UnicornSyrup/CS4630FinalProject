@@ -29,7 +29,7 @@ struct SessionData
 
 public class GameManager : MonoBehaviour
 {
-    const int MAX_LEVEL = 4;
+    const int MAX_LEVEL = 5;
     const float SCORE_INCREMENT = 10;
 
     public static GameManager S;
