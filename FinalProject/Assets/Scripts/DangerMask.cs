@@ -53,16 +53,27 @@ public class DangerMask : MonoBehaviour
     {
         if(steps.Count != 0)
         {
-            float progress = Mathf.Clamp01((Time.time - stepStartTime) / currentStep.duration);
-            transform.position = Vector3.Lerp(prevStep.pos, currentStep.pos, currentStep.curve.Evaluate(progress));
-            transform.eulerAngles = new Vector3(0, 0, Mathf.Lerp(prevStep.rot, currentStep.rot, currentStep.curve.Evaluate(progress)));
-
-            if (progress == 1)
+            if(currentStep.duration != 0)
             {
+                float progress = Mathf.Clamp01((Time.time - stepStartTime) / currentStep.duration);
+                transform.position = Vector3.Lerp(prevStep.pos, currentStep.pos, currentStep.curve.Evaluate(progress));
+                transform.eulerAngles = new Vector3(0, 0, Mathf.Lerp(prevStep.rot, currentStep.rot, currentStep.curve.Evaluate(progress)));
+
+                if (progress == 1)
+                {
+                    prevStep = currentStep;
+                    currentStepIndex++;
+                    stepStartTime = Time.time;
+                }
+            } else
+            {
+                transform.position = currentStep.pos;
+                transform.eulerAngles = new Vector3(0, 0, currentStep.rot);
                 prevStep = currentStep;
                 currentStepIndex++;
                 stepStartTime = Time.time;
             }
+
         }
     }
 }
