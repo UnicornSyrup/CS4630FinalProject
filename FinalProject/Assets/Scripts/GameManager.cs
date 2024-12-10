@@ -90,10 +90,15 @@ public class GameManager : MonoBehaviour
     }
 
     private float totalScore=0;
+    
+    public float timer {
+        get; private set;
+    }
+    const float MAX_TIME = 240f;
 
     private void Awake()
     {
-
+        Time.timeScale = 0;
         if (GameManager.S != null)
         {
             Destroy(this);
@@ -108,17 +113,30 @@ public class GameManager : MonoBehaviour
     {
         S = this;
         SceneManager.activeSceneChanged += OnActiveSceneChange;
+        timer = MAX_TIME;
     }
 
     public void StartGame()
     {
         session.durationPlayed = 0;
+        timer = MAX_TIME;
         session.startTime = System.DateTime.Now;
+
+        Time.timeScale = 1;
 
         TMP_InputField PlayerID = GameObject.Find("PlayerIDField").GetComponent<TMP_InputField>();
         session.playerID = PlayerID.text;
 
         NextLevel();
+    }
+
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            GameOver();
+        }
     }
 
     public void NextLevel()
@@ -235,6 +253,8 @@ public class GameManager : MonoBehaviour
         //go to end screen
         session.durationPlayed = (System.DateTime.Now - session.startTime).Seconds;
         SceneManager.LoadScene(MAX_LEVEL + 1);
+
+        Time.timeScale = 0;
     }
 
     public void BeeDies()
