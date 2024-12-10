@@ -88,3 +88,23 @@ Feedback:
 beep
 
 -------------------
+-------------------
+Player ID: 3464
+Start Time: 2024-12-10 12:52:19Z
+Duration: 42
+Score: 970
+Feedback:
+
+i'm a gamer
+
+-------------------
+-------------------
+Player ID: 3753
+Start Time: 2024-12-10 12:53:29Z
+Duration: 10
+Score: 200
+Feedback:
+
+- Player ended game early -
+
+-------------------
