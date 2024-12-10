@@ -6,6 +6,6 @@ public class StartMenu : MonoBehaviour
 {
     public void StartGame()
     {
-       GameManager.S.NextLevel();
+       GameManager.S.StartGame();
     }
 }
