@@ -5,10 +5,31 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.IO;
 
+struct SessionData
+{
+    public string playerID;
+    public DateTime startTime;
+    public float durationPlayed;
+    public float score;
+    public string feedback;
+
+    public override string ToString()
+    {
+        return "-------------------\n" +
+                "Player ID: " + playerID + "\n" +
+                "Start Time: " + startTime.ToString("u") + "\n" +
+                "Duration: " + durationPlayed.ToString() + "\n" +
+                "Score: " + score.ToString() + "\n" +
+                "Feedback:\n\n" + feedback + "\n\n" +
+                "-------------------\n";
+    }
+}
 
 public class GameManager : MonoBehaviour
 {
+    const int MAX_LEVEL = 3;
     const float SCORE_INCREMENT = 10;
 
     public static GameManager S;
@@ -17,6 +38,8 @@ public class GameManager : MonoBehaviour
     private List<GameObject> lifeIcons = new List<GameObject>();
     private Slider scoreSlider;
     private TMP_Text scoreSliderText;
+
+    private SessionData session;
 
     private float _balloonsRemaining;
     private float balloonsRemaining
@@ -87,13 +110,31 @@ public class GameManager : MonoBehaviour
         SceneManager.activeSceneChanged += OnActiveSceneChange;
     }
 
+    public void StartGame()
+    {
+        session.durationPlayed = 0;
+        session.startTime = System.DateTime.Now;
+
+        TMP_InputField PlayerID = GameObject.Find("PlayerIDField").GetComponent<TMP_InputField>();
+        session.playerID = PlayerID.text;
+
+        NextLevel();
+    }
+
     public void NextLevel()
     {
         totalScore += levelScore;
         levelScore = 0;
 
         currentScene++;
-        SceneManager.LoadScene(currentScene);
+        if (currentScene > MAX_LEVEL)
+        {
+            GameOver();
+        }
+        else
+        {
+            SceneManager.LoadScene(currentScene);
+        }
     }
 
     private void ReloadLevel()
@@ -111,9 +152,35 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    private void SaveSession()
+    {
+        session.score = totalScore;
+
+        if (SceneManager.GetActiveScene().buildIndex == MAX_LEVEL + 1)
+        {
+            TMP_InputField feedback = GameObject.Find("FeedbackField").GetComponent<TMP_InputField>();
+            session.feedback = feedback.text;
+        }
+        else
+        {
+            session.feedback = "- Player ended game early -";
+        }
+
+        if (session.durationPlayed == 0)
+        {
+            session.durationPlayed = (System.DateTime.Now - session.startTime).Seconds;
+        }
+
+        string feedbackFolder = Path.Combine(Application.dataPath, "../Feedback");
+        using (StreamWriter outputFile = new StreamWriter(Path.Combine(feedbackFolder, "feedback.txt"), true))
+        {
+            outputFile.Write(session.ToString());
+        }
+    }
+
     public void ExitGame()
     {
-        //probably need to save off data in player prefs here
+        SaveSession();
         Application.Quit(); 
     }
 
@@ -166,7 +233,8 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         //go to end screen
-        print("game over");
+        session.durationPlayed = (System.DateTime.Now - session.startTime).Seconds;
+        SceneManager.LoadScene(MAX_LEVEL + 1);
     }
 
     public void BeeDies()
