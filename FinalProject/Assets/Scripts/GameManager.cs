@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 using System;
 
 
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     private List<GameObject> lifeIcons = new List<GameObject>();
     private Slider scoreSlider;
+    private TMP_Text scoreSliderText;
 
     private float _balloonsRemaining;
     private float balloonsRemaining
@@ -32,8 +34,6 @@ public class GameManager : MonoBehaviour
     private float initialBalloons;
 
     private float _livesRemaining = 3;
-
-    int i = 0;
 
     private float livesRemaining
     {
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
             if(scoreSlider != null)
             {
                 scoreSlider.value = value / SCORE_INCREMENT / initialBalloons;
+                scoreSliderText.text = value.ToString() + " pts";
             }
             _levelScore = value;
         }
@@ -93,7 +94,6 @@ public class GameManager : MonoBehaviour
 
         currentScene++;
         SceneManager.LoadScene(currentScene);
-
     }
 
     private void ReloadLevel()
@@ -126,8 +126,11 @@ public class GameManager : MonoBehaviour
         }
 
         scoreSlider = GameObject.Find("Score Slider").GetComponent<Slider>();
-        
+        scoreSliderText = scoreSlider.GetComponentInChildren<TMP_Text>();
+        scoreSliderText.text = "0 pts";
 
+        var levelDisplay = GameObject.Find("Level Display").GetComponentInChildren<TMP_Text>();
+        levelDisplay.text = "Level " + currentScene.ToString();
     }
 
     public void BallonDestroyed()
