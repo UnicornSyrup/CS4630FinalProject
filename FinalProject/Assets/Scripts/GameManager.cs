@@ -101,36 +101,60 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(currentScene);
     }
 
+    public void RestartGame()
+    {
+        currentScene = 0;
+        levelScore = 0;
+        totalScore = 0;
+        livesRemaining = 3;
+        //setting remainging ballons to 0 calls next scene, so don't do that
+        SceneManager.LoadScene(0);
+    }
+
+    public void ExitGame()
+    {
+        //probably need to save off data in player prefs here
+        Application.Quit(); 
+    }
+
     private void OnActiveSceneChange(Scene current, Scene next)
     {
         //find out how many ballons there are, in order to know when to end level
         var balloonContatiner = GameObject.Find("Balloons");
-        var balloons = balloonContatiner.GetComponentsInChildren<Balloon>();
-        if(balloons != null)
+        if(balloonContatiner != null)
         {
-            initialBalloons = balloons.Length;
-            balloonsRemaining = initialBalloons;
-        }
-
-        var livesContainer = GameObject.Find("Lives Panel");
-        lifeIcons.Clear();
-        for (int i = 0; i < livesContainer.transform.childCount; i++)
-        {
-            Image icon = livesContainer.transform.GetChild(i).GetComponent<Image>();
-            lifeIcons.Add(icon.gameObject);
-            int lifeIndex = (int)Char.GetNumericValue(icon.gameObject.name[4]);
-            if (lifeIndex > livesRemaining - 1)
+            var balloons = balloonContatiner.GetComponentsInChildren<Balloon>();
+            if(balloons != null)
             {
-                icon.color = new Color(0, 0, 0, 0);
+                initialBalloons = balloons.Length;
+                balloonsRemaining = initialBalloons;
             }
         }
 
-        scoreSlider = GameObject.Find("Score Slider").GetComponent<Slider>();
-        scoreSliderText = scoreSlider.GetComponentInChildren<TMP_Text>();
-        scoreSliderText.text = "0 pts";
+        var levelUi = GameObject.Find("Level UI");
 
-        var levelDisplay = GameObject.Find("Level Display").GetComponentInChildren<TMP_Text>();
-        levelDisplay.text = "Level " + currentScene.ToString();
+        if(levelUi != null)
+        {
+            var livesContainer = GameObject.Find("Lives Panel");
+            lifeIcons.Clear();
+            for (int i = 0; i < livesContainer.transform.childCount; i++)
+            {
+                Image icon = livesContainer.transform.GetChild(i).GetComponent<Image>();
+                lifeIcons.Add(icon.gameObject);
+                int lifeIndex = (int)Char.GetNumericValue(icon.gameObject.name[4]);
+                if (lifeIndex > livesRemaining - 1)
+                {
+                    icon.color = new Color(0, 0, 0, 0);
+                }
+            }
+
+            scoreSlider = GameObject.Find("Score Slider").GetComponent<Slider>();
+            scoreSliderText = scoreSlider.GetComponentInChildren<TMP_Text>();
+            scoreSliderText.text = "0 pts";
+
+            var levelDisplay = GameObject.Find("Level Display").GetComponentInChildren<TMP_Text>();
+            levelDisplay.text = "Level " + currentScene.ToString();
+        }
     }
 
     public void BallonDestroyed()

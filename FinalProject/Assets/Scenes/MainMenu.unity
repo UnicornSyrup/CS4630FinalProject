@@ -341,9 +341,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 188062743}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: NextLevel
+      - m_Target: {fileID: 790082137}
+        m_TargetAssemblyTypeName: StartMenu, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -403,6 +403,7 @@ GameObject:
   - component: {fileID: 790082135}
   - component: {fileID: 790082134}
   - component: {fileID: 790082133}
+  - component: {fileID: 790082137}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -493,6 +494,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &790082137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790082132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92ca148cc2803a49ac6fdb7597a7473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1632685916
 GameObject:
   m_ObjectHideFlags: 0
