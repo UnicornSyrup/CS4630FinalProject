@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Background
       objectReference: {fileID: 0}
+    - target: {fileID: 5157985564839984387, guid: 784a8653a05fb344e83adb77cdeb1c55, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 366868873}
     - target: {fileID: 7344965808922677172, guid: 784a8653a05fb344e83adb77cdeb1c55, type: 3}
       propertyPath: m_Pivot.x
       value: 0
