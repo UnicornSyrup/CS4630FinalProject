@@ -5,12 +5,16 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
 
+
 public class GameManager : MonoBehaviour
 {
+    const float SCORE_INCREMENT = 10;
+
     public static GameManager S;
     private int currentScene = 0;
 
     private List<GameObject> lifeIcons = new List<GameObject>();
+    private Slider scoreSlider;
 
     private float _balloonsRemaining;
     private float balloonsRemaining
@@ -25,7 +29,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private float initialBalloons;
+
     private float _livesRemaining = 3;
+
+    int i = 0;
 
     private float livesRemaining
     {
@@ -42,6 +50,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private float _levelScore = 0;
+
+    private float levelScore
+    {
+        get { return _levelScore; }
+        set
+        {
+            if(scoreSlider != null)
+            {
+                scoreSlider.value = value / SCORE_INCREMENT / initialBalloons;
+            }
+            _levelScore = value;
+        }
+    }
+
+    private float totalScore=0;
 
     private void Awake()
     {
@@ -64,6 +88,9 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
+        totalScore += levelScore;
+        levelScore = 0;
+
         currentScene++;
         SceneManager.LoadScene(currentScene);
 
@@ -81,7 +108,8 @@ public class GameManager : MonoBehaviour
         var balloons = balloonContatiner.GetComponentsInChildren<Balloon>();
         if(balloons != null)
         {
-            balloonsRemaining = balloons.Length;
+            initialBalloons = balloons.Length;
+            balloonsRemaining = initialBalloons;
         }
 
         var livesContainer = GameObject.Find("Lives Panel");
@@ -96,11 +124,16 @@ public class GameManager : MonoBehaviour
                 icon.color = new Color(0, 0, 0, 0);
             }
         }
+
+        scoreSlider = GameObject.Find("Score Slider").GetComponent<Slider>();
+        
+
     }
 
     public void BallonDestroyed()
     {
         balloonsRemaining--;
+        levelScore += SCORE_INCREMENT;
     }
 
     private void GameOver()

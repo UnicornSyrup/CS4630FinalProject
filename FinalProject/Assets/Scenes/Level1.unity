@@ -2143,6 +2143,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bee
       objectReference: {fileID: 0}
+    - target: {fileID: 4520905417013796970, guid: 6b7f95a1956b98a45b5009cdca820552, type: 3}
+      propertyPath: m_Size.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520905417013796970, guid: 6b7f95a1956b98a45b5009cdca820552, type: 3}
+      propertyPath: m_Size.y
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8418766994627435571, guid: 6b7f95a1956b98a45b5009cdca820552, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.6919503
@@ -2610,9 +2618,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 932793347260606109, guid: 61f4285213562ce42ac1f39b97675355, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4102649893656999430, guid: 61f4285213562ce42ac1f39b97675355, type: 3}
       propertyPath: m_Name
       value: Level UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4302642863339434583, guid: 61f4285213562ce42ac1f39b97675355, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8349088804399646934, guid: 61f4285213562ce42ac1f39b97675355, type: 3}
       propertyPath: m_LocalPosition.x
