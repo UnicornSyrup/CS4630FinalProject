@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private float totalScore=0;
+    public float totalScore { get; private set; } = 0;
     
     public float timer {
         get; private set;
