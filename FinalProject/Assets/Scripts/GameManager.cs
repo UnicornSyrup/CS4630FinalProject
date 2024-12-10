@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
         S = this;
         SceneManager.activeSceneChanged += OnActiveSceneChange;
         timer = MAX_TIME;
+
+        AudioManager.instance.Play("Theme");
     }
 
     public void StartGame()
@@ -260,6 +262,7 @@ public class GameManager : MonoBehaviour
     public void BeeDies()
     {
         livesRemaining--;
+        levelScore = 0;
         if(livesRemaining >0)
         {
             ReloadLevel();

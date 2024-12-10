@@ -89,6 +89,7 @@ beep
 
 -------------------
 -------------------
+<<<<<<< Updated upstream
 Player ID: 3464
 Start Time: 2024-12-10 12:52:19Z
 Duration: 42
@@ -106,5 +107,14 @@ Score: 200
 Feedback:
 
 - Player ended game early -
+=======
+Player ID: 
+Start Time: 2024-12-10 13:09:02Z
+Duration: 4
+Score: 0
+Feedback:
+
+
+>>>>>>> Stashed changes
 
 -------------------

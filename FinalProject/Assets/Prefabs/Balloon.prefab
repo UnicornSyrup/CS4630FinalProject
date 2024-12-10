@@ -134,3 +134,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ps: {fileID: 6779512048270310962, guid: eb6b46fccfb99004da68cadb74f50f03, type: 3}
+  soundEffect: {fileID: 8941362070210140359, guid: 62628dde384eebb4cb73a7ae113a0719, type: 3}
